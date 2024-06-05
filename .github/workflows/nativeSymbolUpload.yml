@@ -1,0 +1,26 @@
+name: GenerateCrashlyticsSymbolFileRelease
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checking out branch
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'liberica'
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+
+      - name: Run generateCrashlyticsSymbolFileRelease
+        run: ./gradlew --no-daemon :app:generateCrashlyticsSymbolFileRelease
